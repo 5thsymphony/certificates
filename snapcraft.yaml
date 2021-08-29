@@ -1,0 +1,26 @@
+name: step-ca
+version: git
+summary: |
+  A private certificate authority (X.509 & SSH) & ACME server
+description: For secure automated certificate management, so you can use TLS everywhere & SSO for SSH.
+confinement: devmode
+base: core18
+grade: devel  # stable
+
+parts:
+  step-ca:
+    plugin: go
+    go-importpath: https://github.com/smallstep/certificates
+    source: .
+    source-type: git
+    stage-packages:
+      - libpcsclite-dev
+    build-packages:
+      - gcc
+      - make
+      - pkg-config
+      - libpcsclite-dev
+
+apps:
+  step-ca:
+    command: bin/step-ca
